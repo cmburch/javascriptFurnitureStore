@@ -76,12 +76,17 @@ class Products {
         } else { //not inside of cart
           button.addEventListener("click", event => {
             // disable button
-            event.target.innerText = "In Bag";
+            event.target.innerText = "In Cart";
             event.target.disabled = true;
 
           // add to cart
           let cartItem = { ...Storage.getProduct(id), amount: 1 };
           cart = [...cart, cartItem];
+          console.log(cart);
+          //save the cart in local storage
+          Storage.saveCart(cart);
+              
+
           });
         }
       });
@@ -95,8 +100,13 @@ class Products {
     }
 
     static getProduct(id) {
+      //get all of the products
       let products = JSON.parse(localStorage.getItem("products"));
       return products.find(product => product.id === id);
+    }
+
+    static saveCart(cart) {
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
   }
   
