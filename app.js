@@ -61,8 +61,9 @@ class Products {
       });
       productsDOM.innerHTML = result;
     }
+
     getBagButtons() {
-      //get all the buttons that are associated to a product 
+      //get all the buttons that are associated to a product
       const buttons = [...document.querySelectorAll(".bag-btn")];
       buttonsDOM = buttons;
       buttons.forEach(button => {
@@ -73,11 +74,12 @@ class Products {
         if (inCart) {
           button.innerText = "In Cart";
           button.disabled = true;
-        } else { //not inside of cart
-          button.addEventListener("click", event => {
-            // disable button
-            event.target.innerText = "In Cart";
-            event.target.disabled = true;
+        }
+        //not inside of cart
+        button.addEventListener("click", event => {
+          // disable button
+          event.target.innerText = "In Cart";
+          event.target.disabled = true;
 
           // add to cart
           let cartItem = { ...Storage.getProduct(id), amount: 1 };
@@ -85,11 +87,21 @@ class Products {
           console.log(cart);
           //save the cart in local storage
           Storage.saveCart(cart);
-              
-
-          });
-        }
+          // add to DOM
+          this.setCartValues(cart);
+        });
       });
+    }
+
+    setCartValues(cart) {
+      let tempTotal = 0;
+      let itemsTotal = 0;
+      cart.map(item => {
+        tempTotal += item.price * item.amount;
+        itemsTotal += item.amount;
+      });
+      cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
+      cartItems.innerText = itemsTotal;
     }
   }
 
