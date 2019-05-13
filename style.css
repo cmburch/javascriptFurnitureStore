@@ -93,6 +93,9 @@ body {
     border: 1px solid var(--primaryColor);
     transition: var(--mainTransition);
     /* Will be implemented in the future change cursor to pointer */
+    cursor: pointer;
+  }
+  .notAllowed-pointer{
     cursor: not-allowed;
   }
   .banner-btn:hover {
